@@ -1,0 +1,154 @@
+<?php
+
+/**
+ * @file
+ * Contains demomail.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+/**
+ * Implements hook_help().
+ */
+use Drupal\user\Entity\User;
+
+function demomail_install( ) { 
+
+
+//address of host
+$host= 'localhost';
+//username sql
+$username= 'root';
+//password of sql
+$password= 'root';
+$db_name = 'ircs';
+$connection = mysqli_connect($host,$username,$password)
+or die(mysqli_error()) ;
+//name of database used
+
+//choosing databasese
+mysqli_select_db($connection,$db_name);
+//name of the tale to be used
+$table_name = "a";
+
+//Select user
+$sql_q = "select * from a";
+$result = mysqli_query( $connection,$sql_q);
+
+// storing values an array
+while ($row = mysqli_fetch_array($result)){
+	
+
+
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+      $user = \Drupal\user\Entity\User::create();
+
+  //Mandatory settings
+      $user->setPassword('aabb');
+      $user->enforceIsNew();
+      $user->setEmail('aa42@aa.com');
+      $user->setUsername($row['user_name']); //This username must be unique and accept only a-Z,0-9, - _ @ .
+
+  //Optional settings
+      $user->set("init", 'email');
+      $user->set("langcode", $language);
+      $user->set("preferred_langcode", $language);
+      $user->set("preferred_admin_langcode", $language);
+      //$user->set("setting_name", 'setting_value');
+      $user->activate();
+
+  //Save user
+      $res = $user->save();
+}
+
+}
+ 
+ 
+ 
+ 
+ 
+ function demomail_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the demomail module.
+    case 'help.page.demomail':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('How to send an email programmatically') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+/**
+ * Implements hook_mail().
+ */
+function demomail_mail($key, &$message, $params) {
+  $options = array(
+    'langcode' => $message['langcode'],
+  );
+   switch ($key) {
+    case 'create_article':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] =$params['node_title'];
+      $message['body'][] = $params['message'];
+      break;
+  }
+
+
+}
+
+
+
+function demomail_user_register_form(array $form, FormStateInterface $form_state) {
+  $email = $form_state->getValue('field_email');
+  $mailManager = \Drupal::service('plugin.manager.mail');
+
+  $module = 'demomail';
+  $key = 'create_article';
+  $to = 'ritx123456@gmail.com';
+  $params['message'] = 'ab';
+  $params['node_title'] = 'lel';
+  $langcode = \Drupal::currentUser()->getPreferredLangcode();
+  $send = true;
+
+  $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+  if ($result['result'] !== true) {
+    drupal_set_message(t('There was a problem sending your message and it was not sent.'), 'error');
+  }
+  else {
+    drupal_set_message(t('Your message has been sent.'));
+  }}
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+/**
+ * Implements hook_entity_insert().
+ */
+function demomail_entity_insert(Drupal\Core\Entity\EntityInterface $entity ) {
+ 
+  if ($entity->getEntityTypeId() == 'user'){
+  $mailManager = \Drupal::service('plugin.manager.mail');
+  $d=$entity->field_already_a_volunteer_->value;
+  $n=$entity->field_fname->value;
+  $to=$entity->email->value;
+  if($d=='0'){
+      $entity->block();
+      $entity->save();
+      }
+   }
+  }
+  
+ 
+
+

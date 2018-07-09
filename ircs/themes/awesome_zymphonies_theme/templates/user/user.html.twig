@@ -1,0 +1,150 @@
+{#
+/**
+ * @file
+ * Theme override to present all user data.
+ *
+ * This template is used when viewing a registered user's page,
+ * e.g., example.com/user/123. 123 being the user's ID.
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_example'. Fields attached to a user
+ *   such as 'user_picture' are available as 'content.user_picture'.
+ * - attributes: HTML attributes for the container element.
+ * - user: A Drupal User entity.
+ *
+ * @see template_preprocess_user()
+ */
+#}
+<article{{ attributes.addClass('profile') }}>
+  {% if content %}
+    {#{{- content -}}#}
+    <table style="width:100%">
+  {#<tr>
+    <th>Field</th>
+    <th>Content</th>
+  </tr>#}
+  <tr>
+    <td>
+    <strong>{{ content.field_title|field_label }}</strong>: {{ content.field_title|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_fname|field_label }}</strong>: {{ content.field_fname|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_last_name|field_label }}</strong>: {{ content.field_last_name|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_father_s_name |field_label }}</strong>: {{ content.field_father_s_name |field_value }}
+    </td>
+  </tr>  
+  <tr>
+    <td>
+    <strong>{{ content.field_gender |field_label }}</strong>: {{ content.field_gender|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_state|field_label }}</strong>: {{ content.field_state|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_district|field_label }}</strong>: {{ content.field_district|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_city|field_label }}</strong>: {{ content.field_city|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_apartment_unit_|field_label }}</strong>: {{ content.field_apartment_unit_|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_street_address|field_label }}</strong>: {{ content.field_street_address|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_pin_code |field_label }}</strong>: {{ content.field_pin_code |field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_aadhaar_number|field_label }}</strong>: {{ content.field_aadhaar_number|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_date_of_birth|field_label }}</strong>: {{ content.field_date_of_birth|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_mobile|field_label }}</strong>: {{ content.field_mobile|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_contactyou|field_label }}</strong>: {{ content.field_contactyou|field_value }}
+    </td>
+  </tr>
+  x
+  <tr>
+    <td>
+    <strong>{{ content.field_disc|field_label }}</strong>: {{ content.field_disc|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_educational_professional_q|field_label }}</strong>: {{ content.field_educational_professional_q|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_already_a_volunteer_|field_label }}</strong>: {{ content.field_already_a_volunteer_|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_if_yes_registration_date_|field_label }}</strong>: {{ content.field_if_yes_registration_date_|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_ogname|field_label }}</strong>: {{ content.field_ogname|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_kindofog|field_label }}</strong>: {{ content.field_kindofog|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_typeofvolunteer|field_label }}</strong>: {{ content.field_typeofvolunteer|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_intervention_areas_you_are|field_label }}</strong>: {{ content.field_intervention_areas_you_are|field_value }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <strong>{{ content.field_keywords |field_label }}</strong>: {{ content.field_keywords |field_value }}
+    </td>
+  </tr>
+  </table>
+  {% endif %}
+</article>
